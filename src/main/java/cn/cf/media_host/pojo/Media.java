@@ -17,4 +17,5 @@ public class Media {
     private String uploader_id;
     private String type;
     private ObjectId grid_fs_key;
+    private String link;
 }

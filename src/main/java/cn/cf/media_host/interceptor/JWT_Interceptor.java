@@ -16,7 +16,7 @@ import java.util.HashMap;
 public class JWT_Interceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        if (request.getMethod().equals("OPTIONS")){
+        if (request.getMethod().equals("OPTIONS")) {
             return true;
         }
 
@@ -28,19 +28,19 @@ public class JWT_Interceptor implements HandlerInterceptor {
             JWTUtil.verify(tokenString);
             return true;
         } catch (SignatureVerificationException e) {
-            map.put("message","签名校验失败");
-        } catch (TokenExpiredException e){
-            map.put("message","token过期");
-        } catch (AlgorithmMismatchException e){
-            map.put("message","算法不匹配");
-        } catch (InvalidClaimException e){
-            map.put("message","失效的payload");
-        } catch (Exception e){
+            map.put("message", "签名校验失败");
+        } catch (TokenExpiredException e) {
+            map.put("message", "token过期");
+        } catch (AlgorithmMismatchException e) {
+            map.put("message", "算法不匹配");
+        } catch (InvalidClaimException e) {
+            map.put("message", "失效的payload");
+        } catch (Exception e) {
             e.printStackTrace();
-            map.put("message","无效的token");
+            map.put("message", "无效的token");
         }
 
-        map.put("status",false);
+        map.put("status", false);
         // 将校验的异常结果返回给前端
         String responseJSON = new ObjectMapper().writeValueAsString(map);
         response.setContentType("application/json;charset=UTF-8");

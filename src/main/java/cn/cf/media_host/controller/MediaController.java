@@ -34,6 +34,7 @@ public class MediaController {
 
     /**
      * 查询文件信息，在本系统内根据文件ID查找文件详细信息
+     *
      * @param id 要查询的文件的ID
      * @return 封装的响应状态
      */
@@ -64,7 +65,8 @@ public class MediaController {
 
     /**
      * 接收上传文件
-     * @param file 从前端表单中提交的文件
+     *
+     * @param file    从前端表单中提交的文件
      * @param request 封装请求信息的对象
      * @return 封装的响应状态
      * @throws Exception 当出现异常时抛出
@@ -105,15 +107,16 @@ public class MediaController {
         // 存储文件到GridFS中
         Media insert = mediaService.storeInGridFS(file, fileType, userId);
         if (insert == null) {
-            return StatusResponse.internalServerError500("服务器内部错误，请稍后重试",null);
+            return StatusResponse.internalServerError500("服务器内部错误，请稍后重试", null);
         }
         HashMap<String, Object> map = new HashMap<>();
-        map.put("file_link",selfDomain + ":" + port + "/f/" + insert.get_id());
+        map.put("file_link", selfDomain + ":" + port + "/f/" + insert.get_id());
         return StatusResponse.ok200(map);
     }
 
     /**
      * 根据文件ID删除文件，包含media集合中的文件记录和GridFS中的文件
+     *
      * @param id 要删除的文件在media集合中的_id
      * @return 封装的响应状态
      */

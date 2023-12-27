@@ -57,19 +57,20 @@ public class MediaService {
         GridFSFile result = gridFsOperations.findOne(query(where("_id").is(grid_fs_key)));
         if (result != null) {
             return gridFsOperations.getResource(result);
-        }else {
+        } else {
             return null;
         }
     }
 
     /**
      * 根据文件访问ID查找文件信息
+     *
      * @param id 在media集合中的文件主键_id
      * @return 包含文件信息的实体类
      */
     public Media findById(String id) {
         Optional<Media> optionalMedia = mediaRepository.findById(id);
-        if (optionalMedia.isEmpty()){
+        if (optionalMedia.isEmpty()) {
             return null;
         }
         return optionalMedia.get();
@@ -77,6 +78,7 @@ public class MediaService {
 
     /**
      * 根据ID删除文件，包括删除media集合中的数据和GridFS中的文件
+     *
      * @param id 在media集合中的文件主键_id
      * @return 是否成功删除
      */
@@ -96,12 +98,13 @@ public class MediaService {
 
     /**
      * 接收上传文件
-     * @param file 要存储到数据库中的文件
-     * @param fileType 文件类型，为"image"或"video"其中之一
+     *
+     * @param file       要存储到数据库中的文件
+     * @param fileType   文件类型，为"image"或"video"其中之一
      * @param uploaderId 上传者ID，对应user集合中的某个用户的ID
      * @return 成功插入到media集合中的一条记录
      */
-    public Media storeInGridFS(MultipartFile file, String fileType, String uploaderId){
+    public Media storeInGridFS(MultipartFile file, String fileType, String uploaderId) {
         try {
             InputStream inputStream = file.getInputStream();
             // 存储文件到GridFS中

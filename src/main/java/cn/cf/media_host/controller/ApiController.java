@@ -21,27 +21,27 @@ public class ApiController {
     private UserRepository userRepository;
 
     @GetMapping("/verifyCode.png")
-    public void generateVerifyCode(){
+    public void generateVerifyCode() {
 
     }
 
     @GetMapping("/checkToken")
-    public ResponseEntity<Map<String,Object>> checkToken(HttpServletRequest request){
+    public ResponseEntity<Map<String, Object>> checkToken(HttpServletRequest request) {
         String tokenString = request.getParameter("x-token");
-        if (tokenString==null || tokenString.isEmpty()){
-            return StatusResponse.badRequest400("未传递token",null);
+        if (tokenString == null || tokenString.isEmpty()) {
+            return StatusResponse.badRequest400("未传递token", null);
         }
         return StatusResponse.ok200(null);
     }
 
     @GetMapping("/checkName")
-    public ResponseEntity<Map<String,Object>> checkUserName(String username){
+    public ResponseEntity<Map<String, Object>> checkUserName(String username) {
         User byUsername = userRepository.findByUsername(username);
         HashMap<String, Object> map = new HashMap<>();
-        if (byUsername == null){
-            map.put("canUse",true);
-        }else {
-            map.put("canUse",false);
+        if (byUsername == null) {
+            map.put("canUse", true);
+        } else {
+            map.put("canUse", false);
         }
         return StatusResponse.ok200(map);
     }

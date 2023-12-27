@@ -1,7 +1,8 @@
 package cn.cf.media_host.utils;
+
 /*
-* 将十进制转换为62进制，可以有效缩短字符串长度
-*/
+ * 将十进制转换为62进制，可以有效缩短字符串长度
+ */
 public class ConversionUtil {
     private static final String chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
     private static final int scale = 62;

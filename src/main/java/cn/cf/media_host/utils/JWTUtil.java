@@ -7,26 +7,25 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 
 import java.util.Calendar;
-import java.util.Map;
 
 public class JWTUtil {
 
     private static final String SECRET = "aklsghauioghsduikohsdfujk";  // 算法中的"盐"
 
     // 生成token
-    public static String generateToken(User user){
+    public static String generateToken(User user) {
         Calendar instance = Calendar.getInstance();
-        instance.add(Calendar.DATE,7);    // 默认7天过期
+        instance.add(Calendar.DATE, 7);    // 默认7天过期
 
         // 可以省略的JWT头
 //        HashMap<String, Object> map = new HashMap<>();
 
         JWTCreator.Builder builder = JWT.create();
 
-        builder.withClaim("username",user.getUsername())
-                .withClaim("nickname",user.getNickname())
-                .withClaim("usertype",user.getUsertype())
-                .withClaim("user_id",user.get_id().toHexString());
+        builder.withClaim("username", user.getUsername())
+                .withClaim("nickname", user.getNickname())
+                .withClaim("usertype", user.getUsertype())
+                .withClaim("user_id", user.get_id().toHexString());
 
 //        map.forEach((key,value)-> {
 //            builder.withClaim(key,value);   // 添加payload
@@ -42,7 +41,7 @@ public class JWTUtil {
     }
 
     // 验证token合法性，解析token
-    public static DecodedJWT verify(String token){
+    public static DecodedJWT verify(String token) {
         return JWT.require(Algorithm.HMAC256(SECRET)).build().verify(token);
     }
 

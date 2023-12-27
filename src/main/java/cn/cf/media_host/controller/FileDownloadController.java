@@ -26,19 +26,19 @@ public class FileDownloadController {
         GridFsResource gridFsResource = mediaService.downloadFile(id);
 
         String filename = gridFsResource.getFilename();
-        System.out.println("filename: "+ filename);
+        System.out.println("filename: " + filename);
 
         response.reset();
 //        response.setContentType(contentType);
         //注意: 如果没有下面这行设置header, 结果会将文件的内容作为响应的 body 直接输出在页面上, 而不是下载文件
-        response.setHeader("Content-Disposition","attachment;filename="+ filename);  //指定下载文件名
+        response.setHeader("Content-Disposition", "attachment;filename=" + filename);  //指定下载文件名
 
         ServletOutputStream outputStream = response.getOutputStream();
         InputStream is = gridFsResource.getInputStream();
         byte[] bytes = new byte[1024];
         int len = 0;
-        while ((len=is.read(bytes))!=-1){
-            outputStream.write(bytes,0,len);
+        while ((len = is.read(bytes)) != -1) {
+            outputStream.write(bytes, 0, len);
         }
         is.close();
         outputStream.close();
